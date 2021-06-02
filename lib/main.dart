@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: App(),
+      // home: App(),
+      home: Home(),
     );
   }
 }
@@ -24,12 +25,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(builder: (context, snapshot) {
-      if(snapshot.hasError) return Center(child: Text('Firebase Error'),);
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasError)
+          return Center(
+            child: Text('Firebase Error'),
+          );
 
-      if(snapshot.connectionState == ConnectionState.done) return LoginChecker();
-      return Center(child: CircularProgressIndicator(),);
-    }, future: Firebase.initializeApp(),);
+        if (snapshot.connectionState == ConnectionState.done)
+          return LoginChecker();
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      future: Firebase.initializeApp(),
+    );
   }
 }
 
@@ -38,14 +48,15 @@ class LoginChecker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(builder: (BuildContext context,AsyncSnapshot<User?> user) {
-      if(user.hasData) {
-        return Home();
-      } else {
-        return SignIn();
-      }
-    }, stream: FirebaseAuth.instance.authStateChanges(),);
+    return StreamBuilder(
+      builder: (BuildContext context, AsyncSnapshot<User?> user) {
+        if (user.hasData) {
+          return Home();
+        } else {
+          return SignIn();
+        }
+      },
+      stream: FirebaseAuth.instance.authStateChanges(),
+    );
   }
 }
-
-
