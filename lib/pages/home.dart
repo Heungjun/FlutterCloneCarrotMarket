@@ -1,3 +1,4 @@
+import 'package:clone_carrot_market/pages/favorite.dart';
 import 'package:clone_carrot_market/pages/product_list.dart';
 import 'package:clone_carrot_market/widget/app_bar.dart';
 import 'package:clone_carrot_market/widget/bottom_navigation.dart';
@@ -32,6 +33,8 @@ class _HomeState extends State<Home> {
     switch (_currentPageIndex) {
       case 0:
         return ProductList();
+      case 4:
+        return MyFavoriteContents();
     }
 
     return Container();
